@@ -59,6 +59,11 @@ describe('Todo item view', function() {
 	beforeEach(function() {
 		this.todo = new todoApp.Models.Todo({title: 'new title'});
 		this.item = new todoApp.Views.TodoItem({model: this.todo});
+		this.save_stub = sinon.stub(this.todo, 'save');
+	});
+
+	afterEach(function() {
+		this.save_stub.restore();
 	});
 
 	it('render() should return the view object', function() {
@@ -90,12 +95,10 @@ describe('Todo item view', function() {
 			this.item.$el.find("label>input[type='checkbox']").is(':checked').should.be.false;
 		});
 
-		it('checkbox should be set for "complete" todos', function() {
-			this.save_stub = sinon.stub(this.todo, 'save');
+		it('checkbox should be set for "complete" todos', function() {	
 			this.todo.set('complete', true);
 			this.item.render();
 			this.item.$el.find("label>input[type='checkbox']").is(":checked").should.be.true;
-      		this.save_stub.restore();
 		});
 	});
 });
