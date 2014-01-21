@@ -17,3 +17,7 @@ todoApp.Models.Todo = Backbone.Model.extend({
 		});
 	}
 });
+
+todoApp.Views.TodoItem = Backbone.View.extend({
+	tagName: 'li'
+});

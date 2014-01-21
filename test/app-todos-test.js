@@ -55,3 +55,17 @@ describe('Persistence', function() {
 	});
 });
 
+describe('Todo item view', function() {
+	beforeEach(function() {
+		this.todo = new todoApp.Models.Todo({title: 'new title'});
+		this.item = new todoApp.Views.TodoItem({model: this.todo});
+	});
+
+	it('render() should return the view object', function() {
+		this.item.render().should.equal(this.item);
+	});
+
+	it('should render <li> tag', function() {
+		this.item.render().el.nodeName.should.equal('LI');
+	});
+});
