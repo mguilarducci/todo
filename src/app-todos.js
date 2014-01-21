@@ -19,5 +19,16 @@ todoApp.Models.Todo = Backbone.Model.extend({
 });
 
 todoApp.Views.TodoItem = Backbone.View.extend({
-	tagName: 'li'
+	tagName: 'li',
+	template: _.template(
+		"<label>" +
+			"<input type='checkbox' <% if (complete) print('checked') %> />" +
+			"<%= title %>" +
+		"</label>"
+	),
+
+	render: function() {
+		this.$el.html(this.template(this.model.attributes));
+		return this;
+	}
 });

@@ -68,4 +68,34 @@ describe('Todo item view', function() {
 	it('should render <li> tag', function() {
 		this.item.render().el.nodeName.should.equal('LI');
 	});
+
+	describe('Template', function() {
+		beforeEach(function() {
+			this.item.render();
+		});
+
+		it('should contain the todo title as a text', function() {
+			this.item.$el.text().should.have.string('new title');
+		});
+
+		it('should include a label', function() {
+			this.item.$el.find('label').should.have.length(1);
+		});
+
+		it('should include a checkbox', function() {
+			this.item.$el.find("label>input[type='checkbox']").should.have.length(1);
+		});
+
+		it('checkbox should be clear as default', function() {
+			this.item.$el.find("label>input[type='checkbox']").is(':checked').should.be.false;
+		});
+
+		it('checkbox should be set for "complete" todos', function() {
+			this.save_stub = sinon.stub(this.todo, 'save');
+			this.todo.set('complete', true);
+			this.item.render();
+			this.item.$el.find("label>input[type='checkbox']").is(":checked").should.be.true;
+      		this.save_stub.restore();
+		});
+	});
 });
