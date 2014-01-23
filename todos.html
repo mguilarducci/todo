@@ -6,17 +6,20 @@
   </head>
   <body>
     <h1>List of Todos</h1>
- 
-    <script src="lib/jquery-1.9.0.min.js"></script>
+    <div id="container"></div>
+    <script src="lib/jquery.min.js"></script>
     <script src="lib/underscore-min.js"></script>
     <script src="lib/backbone-min.js"></script>
     <script src="src/app-todos.js"></script>
     <script>
       $(function () {
-        var todos = new todoApp.Todos();
-        todos.fetch();
-        var list = new todoApp.TodosList({collection: todos});
-        $("body").append(list.el);
+        
+        var todos = new todoApp.Collections.Todos([
+            {title: 'title 1'},
+            {title: 'title 2'}
+        ]);
+        var list = new todoApp.Views.TodoList({collection: todos});
+        $("#container").html(list.render().el);
       })
     </script>
   </body>
