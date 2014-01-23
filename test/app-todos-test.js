@@ -113,3 +113,28 @@ describe('Todo item view', function() {
 		});
 	});
 });
+
+describe('Todo List View', function() {
+	beforeEach(function() {
+		this.todos = new todoApp.Collections.Todos([
+			{title: 'title 1'},
+			{title: 'title 2'}
+		]);
+
+		this.list = new todoApp.Views.TodoList({collection: this.todos});
+	});
+
+	it('render() should return the view object', function() {
+		this.list.render().should.equal(this.list);
+	});
+
+	it('should render <ul> tag', function() {
+		this.list.render().el.nodeName.should.equal('UL');
+	});
+
+	it('should include list items for all models in collection', function() {
+		this.list.render();
+		this.list.$el.find('li').should.have.length(2);
+	});
+
+});

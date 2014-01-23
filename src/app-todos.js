@@ -44,3 +44,28 @@ todoApp.Views.TodoItem = Backbone.View.extend({
 		this.model.toggleStatus();
 	}
 });
+
+todoApp.Views.TodoList = Backbone.View.extend({
+	tagName: 'ul',
+	initialize: function() {
+		this.collection.on('add', this.add, this);
+	},
+
+	render: function() {
+		this.addAll();
+		return this;
+	},
+
+	addAll: function() {
+		this.collection.each(this.add, this);
+	},
+	add: function(todo) {
+		var item = new todoApp.Views.TodoItem({model: todo});
+		this.$el.append(item.render().el);
+	}
+});
+
+todoApp.Collections.Todos = Backbone.Collection.extend({
+	model: todoApp.Models.Todo,
+	url: 'api/todos'
+});
