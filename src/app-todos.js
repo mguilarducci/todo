@@ -15,6 +15,10 @@ todoApp.Models.Todo = Backbone.Model.extend({
 		this.on('change', function() {
 			this.save();
 		});
+	},
+
+	toggleStatus: function() {
+		this.set('complete', !this.get('complete'));
 	}
 });
 
@@ -27,8 +31,16 @@ todoApp.Views.TodoItem = Backbone.View.extend({
 		"</label>"
 	),
 
+	events: {
+		'click input': 'toggleStatus'
+	},
+
 	render: function() {
 		this.$el.html(this.template(this.model.attributes));
 		return this;
+	},
+
+	toggleStatus: function() {
+		this.model.toggleStatus();
 	}
 });

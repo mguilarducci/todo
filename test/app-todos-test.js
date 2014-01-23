@@ -101,4 +101,15 @@ describe('Todo item view', function() {
 			this.item.$el.find("label>input[type='checkbox']").is(":checked").should.be.true;
 		});
 	});
+
+	describe('Model Interaction', function() {
+		it('should update model when the chackbox is clicked', function() {
+			$('<div>').attr('id', 'fixture').css('display', 'none').appendTo('body');
+			this.item.render();
+			$('#fixture').append(this.item.$el);
+			this.item.$el.find('input').click();
+			this.todo.get('complete').should.be.true;
+			$('#fixture').remove();
+		});
+	});
 });
